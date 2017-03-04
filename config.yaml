@@ -1,0 +1,21 @@
+---
+ip: "192.168.40.40"
+memory: 1024
+cpus: 1
+provider: virtualbox
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: ~/workspace
+      to: /home/vagrant/sites
+
+sites:
+    - map: example.local
+      to: /home/vagrant/sites/example/code
+
+databases:
+    - example
