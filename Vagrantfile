@@ -1,11 +1,18 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'yaml'
+
+VAGRANTFILE_API_VERSION ||= "2"
+confDir = $confDir ||= File.expand_path(File.dirname(__FILE__))
+
+configFile = confDir + "/config.yaml"
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-Vagrant.configure("2") do |config|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -14,6 +21,12 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
   config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/trusty64"
+
+  if File.exist? configFile then
+    settings = YAML::load(File.read(configFile))
+  else
+    abort "Config file not found in #{confDir}"
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -27,13 +40,17 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.66.66"
+  config.vm.network "private_network", ip: settings["ip"] ||= "192.168.40.40"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "sites", "/home/vagrant/sites"
+  if settings.include? 'folder'
+    settings["folders"].each do |folder|
+      config.vm.synced_folder folder["map"], folder["to"]
+    end
+  end
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -42,7 +59,7 @@ Vagrant.configure("2") do |config|
     # vb.gui = true
   
     # Customize the amount of memory on the VM:
-    vb.memory = "1024"
+    vb.memory = settings["memory"] ||= "1024"
   end
 
   # View the documentation for the provider you are using for more
