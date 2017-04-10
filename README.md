@@ -1,21 +1,24 @@
-# Pitbox
-Drupal 7 Development Environment
+# Drupal 7 Development Environment
 
-Requirements:
-Virtualbox + Extension Pack
-Vagrant
+## Prerequisites
+* Virtualbox + Extension Pack
+* Vagrant
 
-What's Installed:
-Ubuntu Trusty64
-PHP 5.6
-MySQL
-PHPmyAdmin
-Drush
-Composer
-Ruby (through rvm)
+## What's Installed
+* Ubuntu Trusty64
+* Apache 
+* PHP 5.5.9
+* MySQL 5.5.54
+* PHPmyAdmin
+* Drush
+* Composer
+* Ruby (through rvm)
 
-Installation:
-1. Install Virtualbox including its extension pack and Vagrant.
-2. Configure sever settings in config.yml file.
-3. Turn on the vagrant box through $ vagrant up
-4. Access the initial site through http://[ip-adddress].
+## Installation
+#### Install Virtualbox including its extension pack and Vagrant.
+#### Configure server settings in config.yml file.
+#### Turn on the vagrant box through $ vagrant up
+```sh
+$ vagrant up
+```
+#### Access the initial site through http://[ip-adddress].

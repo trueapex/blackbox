@@ -48,7 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   if settings.include? 'folders'
     settings["folders"].each do |folder|
-      config.vm.synced_folder folder["map"], folder["to"], type: "nfs"
+      config.vm.synced_folder folder["map"], folder["to"], type: "nfs", mount_options: ['actimeo=1', 'nolock']
     end
   end
 
