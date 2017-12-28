@@ -37,10 +37,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network "forwarded_port", guest: 80, host: 8080, protocol: "tcp", auto_correct: true
+  # config.vm.network "forwarded_port", guest: 1080, host: 1088, protocol: "tcp", auto_correct: true
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: settings["ip"] ||= "192.168.40.40"
+  config.vm.network "private_network", ip: settings["ip"] ||= "192.168.33.33"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -48,7 +49,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   if settings.include? 'folders'
     settings["folders"].each do |folder|
-      config.vm.synced_folder folder["map"], folder["to"], type: "nfs", mount_options: ['actimeo=1', 'nolock']
+      config.vm.synced_folder folder["map"], folder["to"]
+      # config.vm.synced_folder folder["map"], folder["to"], type: "nfs", mount_options: ['actimeo=1', 'nolock']
     end
   end
 
@@ -59,7 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # vb.gui = true
   
     # Customize the amount of memory on the VM:
-    vb.memory = settings["memory"] ||= "1024"
+    vb.memory = settings["memory"] ||= "2048"
   end
 
   # View the documentation for the provider you are using for more
