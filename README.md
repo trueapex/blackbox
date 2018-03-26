@@ -1,19 +1,14 @@
-# Drupal 7 Development Environment
+# Install PHP5.3, MySQL, and Apache in Ubuntu Precise64
 
 ## Prerequisites
 * Virtualbox + Extension Pack
 * Vagrant
 
 ## What's Installed
-* Ubuntu Trusty64
-* Apache 2.4.7
-* PHP 5.6.30
-* MySQL 5.5.54
-* XDebug 2.5.1
-* PHPmyAdmin
-* Drush
-* Composer
-* Ruby (through rvm)
+* Ubuntu Precise64
+* Apache 2.2
+* PHP 5.3
+* MySQL 5.5
 
 ```sh
 $ locale
@@ -56,28 +51,37 @@ $ sudo apt-get update
 
 $ sudo apt-get install apache2
 $ apache2 -v
-Server version: Apache/2.4.7 (Ubuntu)
-Server built:   Jul 15 2016 15:34:04
 
 $ sudo apt-get install mysql-server
 $ sudo mysql_install_db
 $ sudo mysql_secure_installation
 $ mysql --version
-mysql  Ver 14.14 Distrib 5.5.54, for debian-linux-gnu (x86_64) using readline 6.3
 
-$ sudo add-apt-repository ppa:ondrej/php
-$ sudo apt-get install php5.6
+$ sudo apt-get install php5
 $ php --version
-PHP 5.6.30-9+deb.sury.org~trusty+1 (cli) 
-Copyright (c) 1997-2016 The PHP Group
-Zend Engine v2.6.0, Copyright (c) 1998-2016 Zend Technologies
-    with Zend OPcache v7.0.6-dev, Copyright (c) 1999-2016, by Zend Technologies
 
-$ sudo apt-get install libapache2-mod-php5.6 php5.6-mysql php5.6-mcrypt php5.6-mbstring php5.6-xml php5.6-curl php5.6-zip php5.6-gd
+$ sudo apt-get install php5 php5-mysql
 
 $ sudo a2enmod rewrite
 
 $ sudo service apache2 restart
+```
+
+Virtualhost file
+```sh
+<VirtualHost *:80>
+  DocumentRoot /home/vagrant/sites/[SITE_NAME]/code
+  ServerName [SITE_NAME].local
+  ServerAlias www.[SITE_NAME].local
+  RewriteEngine On
+  ErrorLog /var/log/apache2/[SITE_NAME]-error.log
+  LogLevel warn
+  CustomLog /var/log/apache2/[SITE_NAME]-access.log combined
+  ServerSignature On
+  <Directory /home/vagrant/sites/[SITE_NAME]/code>
+    AllowOverride All
+  </Directory>
+</VirtualHost>
 ```
 
 ## Installation
@@ -88,3 +92,7 @@ $ sudo service apache2 restart
 $ vagrant up
 ```
 #### Access the initial site through http://[ip-adddress].
+
+Reference:
+https://app.vagrantup.com/hashicorp/boxes/precise64
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-14-04

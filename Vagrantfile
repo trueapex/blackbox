@@ -19,8 +19,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/trusty64"
+  config.vm.box = "hashicorp/precise64"
+  config.vm.box_url = "https://app.vagrantup.com/hashicorp/boxes/precise64"
 
   if File.exist? configFile then
     settings = YAML::load(File.read(configFile))
@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: settings["ip"] ||= "192.168.33.33"
+  config.vm.network "private_network", ip: settings["ip"] ||= "192.168.53.53"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -61,7 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # vb.gui = true
   
     # Customize the amount of memory on the VM:
-    vb.memory = settings["memory"] ||= "2048"
+    vb.memory = settings["memory"] ||= "1024"
   end
 
   # View the documentation for the provider you are using for more

@@ -1,6 +1,6 @@
 ---
-ip: "192.168.33.33"
-memory: 2048
+ip: "192.168.53.53"
+memory: 1024
 cpus: 1
 provider: virtualbox
 
@@ -14,8 +14,8 @@ folders:
       to: /home/vagrant/sites
 
 sites:
-    - map: example.local
-      to: /home/vagrant/sites/example/code
+    - map: accuglassproducts.local
+      to: /home/vagrant/sites/accuglass/code
 
 databases:
-    - example
+    - accuglass_live
