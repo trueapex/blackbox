@@ -57,10 +57,8 @@ $ sudo mysql_install_db
 $ sudo mysql_secure_installation
 $ mysql --version
 
-$ sudo apt-get install php5
-$ php --version
-
 $ sudo apt-get install php5 php5-mysql
+$ php --version
 
 $ sudo a2enmod rewrite
 
