@@ -67,23 +67,6 @@ $ sudo a2enmod rewrite
 $ sudo service apache2 restart
 ```
 
-Virtualhost file
-```sh
-<VirtualHost *:80>
-  DocumentRoot /home/vagrant/sites/[SITE_NAME]/code
-  ServerName [SITE_NAME].local
-  ServerAlias www.[SITE_NAME].local
-  RewriteEngine On
-  ErrorLog /var/log/apache2/[SITE_NAME]-error.log
-  LogLevel warn
-  CustomLog /var/log/apache2/[SITE_NAME]-access.log combined
-  ServerSignature On
-  <Directory /home/vagrant/sites/[SITE_NAME]/code>
-    AllowOverride All
-  </Directory>
-</VirtualHost>
-```
-
 ## Installation
 #### Install Virtualbox including its extension pack and Vagrant.
 #### Configure server settings in config.yml file.
